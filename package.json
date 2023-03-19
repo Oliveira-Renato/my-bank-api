@@ -1,0 +1,22 @@
+{
+  "name": "my-bank-api",
+  "version": "1.0.0",
+  "description": "my first api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oliveira-renato/my-bank-api.git"
+  },
+  "author": "Renato Oliveira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oliveira-renato/my-bank-api/issues"
+  },
+  "homepage": "https://github.com/oliveira-renato/my-bank-api#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
