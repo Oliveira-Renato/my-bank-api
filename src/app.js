@@ -7,7 +7,6 @@ const port = 3000;
 const { readFile, writeFile } = fs;
 
 app.use(express.json());
-
 app.use('/account', accountsRouter);
 
 
