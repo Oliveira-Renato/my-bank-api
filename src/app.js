@@ -1,10 +1,31 @@
 import express from 'express';
 import accountsRouter from '../routes/accounts.js';
 import { promises as fs } from 'fs';
-
-global.fileName = 'accounts.json';
+import winston from 'winston';
 
 const { readFile, writeFile } = fs;
+const { combine, label, timestamp, printf } = winston.format;
+const myFormat = printf(({ level, message, label, timestamp }) => {
+  return `${timestamp} [${label}] ${level}: ${message}`;
+})
+
+global.fileName = 'accounts.json';
+//Logger settings
+global.logger = winston.createLogger({
+  level: "silly",
+  transports: [
+    new (winston.transports.Console)(),
+    new (winston.transports.File)({ filename: 'my-bank-api.log' })
+  ],
+  format: combine(
+    winston.format.timestamp({
+      format: 'YYYY-MM-DD HH:mm:ss'
+    }),
+    label({ label: 'my-bank-api' }),
+    myFormat
+  )
+})
+
 const app = express();
 const port = 3000;
 
@@ -14,14 +35,14 @@ app.use('/account', accountsRouter);
 app.listen(port, async () => {
   try {
     await readFile(global.fileName);
-    console.log(`App listening on port:${port}`);
+    logger.info('API started.')
   } catch (error) {
     const initialJson = {
       nextID: 1,
       accounts: []
     }
     writeFile(global.fileName, JSON.stringify(initialJson)).then(() => {
-      console.log(`App listening on ${port}`);
-    }).catch(err => console.log(err));
+      logger.info('API started and file created.')
+    }).catch(err => logger.info(err));
   }
 });
