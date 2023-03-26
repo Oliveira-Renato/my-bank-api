@@ -40,6 +40,7 @@ async function getAccounts(req, res, next) {
     next(error);
   }
 }
+
 async function getAccount(req, res, next) {
   try {
     const data = JSON.parse(await readFile(global.fileName));
@@ -53,6 +54,7 @@ async function getAccount(req, res, next) {
     next(error);
   }
 }
+
 async function deleteAccount(req, res, next) {
   try {
     const data = JSON.parse(await readFile(global.fileName));
@@ -67,6 +69,7 @@ async function deleteAccount(req, res, next) {
     next(error);
   }
 }
+
 async function updateAccount(req, res, next) {
   try {
     let account = req.body;
@@ -92,6 +95,7 @@ async function updateAccount(req, res, next) {
     next(error);
   }
 }
+
 async function updateBalance(req, res, next) {
   try {
     let account = req.body;
