@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/oliveira-renato/my-bank-api#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.18.2",
+    "swagger-ui-express": "^4.6.2",
     "winston": "^3.8.2"
   },
   "nodemonConfig": {

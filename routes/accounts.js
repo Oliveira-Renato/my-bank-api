@@ -19,7 +19,7 @@ router.post('/', async (req, res, next) => {
     account = {
       id: data.nextID++,
       name: account.name,
-      balance: parseInt(account.balance)
+      balance: parseInt(account.balance) || 0
     };
 
     data.accounts.push(account);

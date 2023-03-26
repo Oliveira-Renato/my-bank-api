@@ -2,6 +2,9 @@ import express from 'express';
 import accountsRouter from '../routes/accounts.js';
 import { promises as fs } from 'fs';
 import winston from 'winston';
+import cors from 'cors';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerDocument } from '../doc.js';
 
 const { readFile, writeFile } = fs;
 const { combine, label, timestamp, printf } = winston.format;
@@ -30,7 +33,11 @@ const app = express();
 const port = 3000;
 
 app.use(express.json());
+app.use(cors());
+app.use(express.static('public'));
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use('/account', accountsRouter);
+
 
 app.listen(port, async () => {
   try {
