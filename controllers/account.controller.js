@@ -1,12 +1,8 @@
-import express from 'express';
 import { promises as fs } from 'fs';
 
 const { readFile, writeFile } = fs;
-const router = express.Router();
 
-//POST
-router.post('/', async (req, res, next) => {
-  debugger
+async function createAccount(req, res, next) {
   try {
     let account = req.body;
 
@@ -31,10 +27,9 @@ router.post('/', async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-})
+}
 
-//GET
-router.get('/', async (req, res, next) => {
+async function getAccounts(req, res, next) {
   try {
     const data = JSON.parse(await readFile(global.fileName));
     delete data.nextID;
@@ -44,10 +39,8 @@ router.get('/', async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-})
-
-//GET by id
-router.get('/:id', async (req, res, next) => {
+}
+async function getAccount(req, res, next) {
   try {
     const data = JSON.parse(await readFile(global.fileName));
     const account = data.accounts.find(
@@ -59,10 +52,8 @@ router.get('/:id', async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-})
-
-//DELETE
-router.delete('/:id', async (req, res, next) => {
+}
+async function deleteAccount(req, res, next) {
   try {
     const data = JSON.parse(await readFile(global.fileName));
     data.accounts = data.accounts.filter(
@@ -75,10 +66,8 @@ router.delete('/:id', async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-})
-
-//PUT 
-router.put('/', async (req, res, next) => {
+}
+async function updateAccount(req, res, next) {
   try {
     let account = req.body;
 
@@ -102,10 +91,8 @@ router.put('/', async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-})
-
-//PATCH 
-router.patch('/updateBalance', async (req, res, next) => {
+}
+async function updateBalance(req, res, next) {
   try {
     let account = req.body;
 
@@ -129,11 +116,13 @@ router.patch('/updateBalance', async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-})
+}
 
-router.use((err, req, res, nex) => {
-  logger.error(`${req.method} ${req.baseUrl} ${err.message}`);
-  res.status(400).send({ error: err.message });
-})
-
-export default router;
+export default {
+  createAccount,
+  getAccounts,
+  getAccount,
+  deleteAccount,
+  updateAccount,
+  updateBalance
+}
