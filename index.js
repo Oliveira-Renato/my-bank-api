@@ -1,10 +1,10 @@
 import express from 'express';
-import accountsRouter from '../routes/accounts.routes.js';
+import accountsRouter from './routes/accounts.routes.js';
 import { promises as fs } from 'fs';
 import winston from 'winston';
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
-import { swaggerDocument } from '../doc.js';
+import { swaggerDocument } from './doc.js';
 
 const { readFile, writeFile } = fs;
 const { combine, label, timestamp, printf } = winston.format;
