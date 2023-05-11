@@ -35,7 +35,7 @@ const port = 3000;
 app.use(express.json());
 app.use(cors());
 app.use(express.static('public'));
-app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/account', accountsRouter);
 
 
